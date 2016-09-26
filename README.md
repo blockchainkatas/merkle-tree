@@ -3,8 +3,8 @@ Merkle Tree Kata
 
 Kata for implementing a Merkle Tree class:
 
-https://en.wikipedia.org/wiki/Merkle_tree
-https://brilliant.org/wiki/merkle-tree/
+* https://en.wikipedia.org/wiki/Merkle_tree
+* https://brilliant.org/wiki/merkle-tree/
 
 A Merkle Tree is a data structure used by Bitcoin and other P2P systems.
 
