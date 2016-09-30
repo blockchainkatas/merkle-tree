@@ -4,6 +4,13 @@ namespace BlockchainKatas\MerkleTree;
 
 class MerkleTree
 {
+    private $hash;
+
+    public function __construct(callable $hash)
+    {
+        $this->hash = $hash;
+    }
+
     public function calculateMerkleRoot($chunks)
     {
         if (!$chunks) {
@@ -26,6 +33,6 @@ class MerkleTree
 
     private function h($chunk)
     {
-        return $chunk . $chunk;
+        return call_user_func_array($this->hash, [$chunk]);
     }
 }

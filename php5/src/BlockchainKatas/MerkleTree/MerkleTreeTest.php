@@ -13,7 +13,9 @@ class MerkleTreeTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->merkleTree = new MerkleTree();
+        $this->merkleTree = new MerkleTree(function ($value) {
+            return $value . $value;
+        });
     }
 
     /** @test */
