@@ -10,12 +10,13 @@ A Merkle Tree is a data structure used by Bitcoin and other P2P systems.
 
 # Requirements
 
+* A document will be represented as an string.
+* We want to split the document in chunks of N characters and send each chunk separately.
+* We are going to use a Merkle root for document integrity validation.
+
 ## Iteration 1: 
 
-* We need to send a document to a recipient.
-* A document can be a string of any length.
-* We want to split the document in chunks of N characters and send each chunk separately.
-* Given the array of chunks (array of strings) we want to calculate the the merkle root.
+* We need generate the Merkle root of a document.
 
 ## Iteration 2: 
 
