@@ -78,4 +78,24 @@ class MerkleTreeTest extends \PHPUnit_Framework_TestCase
         $chunks = [];
         $merkleRoot = $this->merkleTree->calculateMerkleRoot($chunks);
     }
+
+    /** @test */
+    public function
+    it_should_allow_calculate_merkle_root_using_a_different_hash_function()
+    {
+        $merkleTree = new MerkleTree(function ($value) {
+            return $value . 'X';
+        });
+
+        /**
+         * h(h(A) + h(B)) = h(AXBX) = AXBXX
+         * h(A) = AX  h(B) = BX
+         * A B
+         */
+
+        $chunks = ['A', 'B'];
+        $merkleRoot = $merkleTree->calculateMerkleRoot($chunks);
+
+        $this->assertEquals('AXBXX', $merkleRoot);
+    }
 }
