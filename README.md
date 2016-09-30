@@ -13,10 +13,13 @@ A Merkle Tree is a data structure used by Bitcoin and other P2P systems.
 * A document will be represented as an string.
 * We want to split the document in chunks of N characters and send each chunk separately.
 * We are going to use a Merkle root for document integrity validation.
+* We always use a pair number of chunks (leaf nodes in the tree). If the number is odd, we
+have to duplicate the last one.
 
 ## Iteration 1: 
 
 * We need generate the Merkle root of a document.
+* The hash function will be h(x) = xx.
 
 ## Iteration 2: 
 
