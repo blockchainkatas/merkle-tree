@@ -6,6 +6,10 @@ class MerkleTree
 {
     public function calculateMerkleRoot($chunks)
     {
+        if (!$chunks) {
+            throw new \InvalidArgumentException('Expected not empty array of chunks');
+        }
+
         if (count($chunks) % 2) {
             $chunks[] = $chunks[count($chunks) - 1];
         }

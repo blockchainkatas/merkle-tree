@@ -2,6 +2,8 @@
 
 namespace BlockchainKatas\MerkleTree;
 
+use InvalidArgumentException;
+
 class MerkleTreeTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -62,5 +64,16 @@ class MerkleTreeTest extends \PHPUnit_Framework_TestCase
         $merkleRoot = $this->merkleTree->calculateMerkleRoot($chunks);
 
         $this->assertEquals('AABBAABBCCCCCCCCAABBAABBCCCCCCCC', $merkleRoot);
+    }
+
+    /**
+     * @test
+     * @expectedException InvalidArgumentException
+     */
+    public function
+    it_should_fail_generating_a_merkle_root_with_0_chunks()
+    {
+        $chunks = [];
+        $merkleRoot = $this->merkleTree->calculateMerkleRoot($chunks);
     }
 }
