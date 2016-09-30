@@ -16,7 +16,7 @@ class MerkleTreeTest extends \PHPUnit_Framework_TestCase
 
     /** @test */
     public function
-    it_should_generate_a_merkle_root_from_two_chunks()
+    it_should_generate_a_merkle_root_from_2_chunks()
     {
         /**
          * h(h(A) + h(B)) = h(AABB) = AABBAABB
@@ -28,5 +28,22 @@ class MerkleTreeTest extends \PHPUnit_Framework_TestCase
         $merkleRoot = $this->merkleTree->calculateMerkleRoot($chunks);
 
         $this->assertEquals('AABBAABB', $merkleRoot);
+    }
+
+    /** @test */
+    public function
+    it_should_generate_a_merkle_root_from_4_chunks()
+    {
+        /**
+         * h(AABBAABB + CCDDCCDD) = h(AABBAABBCCDDCCDD) = AABBAABBCCDDCCDDAABBAABBCCDDCCDD
+         * h(h(A) + h(B)) = h(AABB) = AABBAABB  h(h(C) + h(D)) = h(CCDD) = CCDDCCDD
+         * h(A) = AA  h(B) = BB                 h(C) = CC  h(D) = DD
+         * A  B                                 C  D
+         */
+
+        $chunks = ['A', 'B', 'C', 'D'];
+        $merkleRoot = $this->merkleTree->calculateMerkleRoot($chunks);
+
+        $this->assertEquals('AABBAABBCCDDCCDDAABBAABBCCDDCCDD', $merkleRoot);
     }
 }
