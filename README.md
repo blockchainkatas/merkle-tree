@@ -23,13 +23,17 @@ have to duplicate the last one.
 
 ## Iteration 2: 
 
+* Allow changing hash function.
+
+## Iteration 3: 
+
 * The initial array of chunks is very big and we want to build the tree passing one chuck at a time.
 
-## Iteration 3:
+## Iteration 4:
 
 * Given a MerkleTree and a chunk we want to check if that chunk is valid.
 
-## Iteration 4:
+## Iteration 5:
 
 * We want to validate a chunk without using the entire MerkleTree. We want to calculate the minimum branch needed 
 to validate a chunk, and use that branch to validate a chunk.
