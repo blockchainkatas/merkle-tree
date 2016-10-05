@@ -4,18 +4,22 @@ namespace BlockchainKatas\MerkleTree;
 
 use InvalidArgumentException;
 
-class MerkleTreeTest extends \PHPUnit_Framework_TestCase
+trait MerkleTreeTest
 {
     /**
      * @var MerkleTree
      */
-    protected $recursiveMerkleTree;
+    protected $merkleTree;
+    protected $merkleTreeWithAlternativeHash;
 
-    public function setUp()
+    public function merkleTreeHash($value)
     {
-        $this->recursiveMerkleTree = new RecursiveMerkleTree(function ($value) {
-            return $value . $value;
-        });
+        return $value . $value;
+    }
+
+    public function merkleTreeAlternativeHash($value)
+    {
+        return $value . 'X';
     }
 
     /** @test */
@@ -29,7 +33,7 @@ class MerkleTreeTest extends \PHPUnit_Framework_TestCase
          */
 
         $chunks = ['A', 'B'];
-        $merkleRoot = $this->recursiveMerkleTree->calculateMerkleRoot($chunks);
+        $merkleRoot = $this->merkleTree->calculateMerkleRoot($chunks);
 
         $this->assertEquals('AABBAABB', $merkleRoot);
     }
@@ -46,7 +50,7 @@ class MerkleTreeTest extends \PHPUnit_Framework_TestCase
          */
 
         $chunks = ['A', 'B', 'C', 'D'];
-        $merkleRoot = $this->recursiveMerkleTree->calculateMerkleRoot($chunks);
+        $merkleRoot = $this->merkleTree->calculateMerkleRoot($chunks);
 
         $this->assertEquals('AABBAABBCCDDCCDDAABBAABBCCDDCCDD', $merkleRoot);
     }
@@ -63,7 +67,7 @@ class MerkleTreeTest extends \PHPUnit_Framework_TestCase
          */
 
         $chunks = ['A', 'B', 'C'];
-        $merkleRoot = $this->recursiveMerkleTree->calculateMerkleRoot($chunks);
+        $merkleRoot = $this->merkleTree->calculateMerkleRoot($chunks);
 
         $this->assertEquals('AABBAABBCCCCCCCCAABBAABBCCCCCCCC', $merkleRoot);
     }
@@ -76,17 +80,13 @@ class MerkleTreeTest extends \PHPUnit_Framework_TestCase
     it_should_fail_generating_a_merkle_root_with_0_chunks()
     {
         $chunks = [];
-        $merkleRoot = $this->recursiveMerkleTree->calculateMerkleRoot($chunks);
+        $merkleRoot = $this->merkleTree->calculateMerkleRoot($chunks);
     }
 
     /** @test */
     public function
     it_should_allow_calculate_merkle_root_using_a_different_hash_function()
     {
-        $recursiveMerkleTree = new RecursiveMerkleTree(function ($value) {
-            return $value . 'X';
-        });
-
         /**
          * h(h(A) + h(B)) = h(AXBX) = AXBXX
          * h(A) = AX  h(B) = BX
@@ -94,7 +94,7 @@ class MerkleTreeTest extends \PHPUnit_Framework_TestCase
          */
 
         $chunks = ['A', 'B'];
-        $merkleRoot = $recursiveMerkleTree->calculateMerkleRoot($chunks);
+        $merkleRoot = $this->merkleTreeAlternativeHash->calculateMerkleRoot($chunks);
 
         $this->assertEquals('AXBXX', $merkleRoot);
     }
