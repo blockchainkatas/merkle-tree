@@ -9,7 +9,7 @@ class DynamicMerkleTree
 
     public function __construct(callable $hash)
     {
-        $this->merkleTree = new MerkleTree($hash);
+        $this->merkleTree = new RecursiveMerkleTree($hash);
     }
 
     public function addChunk($chunk)
